@@ -23,6 +23,11 @@
             android:id="@+id/nav_add_land"
             android:icon="@drawable/ic_add_circle"
             android:title="Add Land" />
+
+        <item
+            android:id="@+id/nav_my_land"
+            android:icon="@drawable/ic_format_list_bulleted"
+            android:title="My Land" />
     </group>
 
     <!--<item android:title="Communicate">

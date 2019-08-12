@@ -30,7 +30,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.gson.JsonObject;
 import com.project.cosmofarmerapp.services.APIClient;
 import com.project.cosmofarmerapp.services.APIServices;
-import com.project.cosmofarmerapp.services.Config;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -109,15 +108,15 @@ public class AddLandFragment extends Fragment {
             e.printStackTrace();
         }
         land.addProperty("landName", landName);
-        land.addProperty("landArea", landArea);
+        land.addProperty("totalLand", landArea);
+        land.addProperty("availableLand", landArea);
         land.addProperty("accountNumber", accountNumber);
         land.addProperty("surveyNumber", surveyNumber);
 
-        //TODO: Change it later
-        mLocation = Config.currentLocation;
         JsonObject jsonLocation = new JsonObject();
         jsonLocation.addProperty("lat", mLocation.getLatitude());
-        jsonLocation.addProperty("lag", mLocation.getLongitude());
+        jsonLocation.addProperty("lon", mLocation.getLongitude());
+        jsonLocation.addProperty("address", locationString);
 
         land.add("location", jsonLocation);
 

@@ -110,10 +110,12 @@ public class NavigationActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
         } else if (id == R.id.nav_my_crop) {
             getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyCropFragment()).commit();
-        } else if (id == R.id.nav_home){
+        } else if (id == R.id.nav_home) {
             getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).commit();
-        } else if (id == R.id.nav_add_land){
+        } else if (id == R.id.nav_add_land) {
             getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).commit();
+        } else if (id == R.id.nav_my_land) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyLandFragment()).commit();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

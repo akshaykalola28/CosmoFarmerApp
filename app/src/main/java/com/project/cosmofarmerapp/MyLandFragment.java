@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.google.gson.JsonObject;
-import com.project.cosmofarmerapp.adapters.CropAdapter;
+import com.project.cosmofarmerapp.adapters.LandAdapter;
 import com.project.cosmofarmerapp.services.APIClient;
 import com.project.cosmofarmerapp.services.APIServices;
 
@@ -27,44 +27,42 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyCropFragment extends Fragment {
+public class MyLandFragment extends Fragment {
 
     View mainView;
-    CropAdapter mAdapter;
-    List<JsonObject> cropList;
+    LandAdapter mAdapter;
+    List<JsonObject> landList;
     JSONObject userDataJson;
-    RecyclerView cropRecyclerView;
+    RecyclerView landRecyclerView;
     ProgressBar loading;
 
     APIServices services;
 
-    public MyCropFragment() {
+    public MyLandFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mainView = inflater.inflate(R.layout.fragment_my_crop, container, false);
+        mainView = inflater.inflate(R.layout.fragment_my_land, container, false);
 
         services = APIClient.getClient().create(APIServices.class);
 
         userDataJson = ((NavigationActivity) getActivity()).getUser();
 
-        loading = mainView.findViewById(R.id.loading_my_crop);
-        cropRecyclerView = mainView.findViewById(R.id.my_crop_recyclerview);
-        cropRecyclerView.setHasFixedSize(true);
+        loading = mainView.findViewById(R.id.loading_my_land);
+        landRecyclerView = mainView.findViewById(R.id.my_land_recyclerview);
+        landRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        cropRecyclerView.setLayoutManager(linearLayoutManager);
-        cropList = new ArrayList<>();
+        landRecyclerView.setLayoutManager(linearLayoutManager);
+        landList = new ArrayList<>();
 
         try {
-            fetchCropList();
+            fetchLandList();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -72,18 +70,18 @@ public class MyCropFragment extends Fragment {
         return mainView;
     }
 
-    private void fetchCropList() throws JSONException {
-        Call<List<JsonObject>> call = services.getCropList(userDataJson.getString("phone"));
+    private void fetchLandList() throws JSONException {
+        Call<List<JsonObject>> call = services.getLandList(userDataJson.getString("phone"));
         call.enqueue(new Callback<List<JsonObject>>() {
             @Override
             public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
                 if (response.code() == 204) {
-                    Snackbar.make(mainView, "Crop not Available.", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mainView, "Land not Available.", Snackbar.LENGTH_SHORT).show();
                     loading.setVisibility(View.GONE);
                 } else if (response.isSuccessful()) {
-                    cropList = response.body();
-                    mAdapter = new CropAdapter(getContext(), MyCropFragment.this, cropList);
-                    cropRecyclerView.setAdapter(mAdapter);
+                    landList = response.body();
+                    mAdapter = new LandAdapter(getContext(), MyLandFragment.this, landList);
+                    landRecyclerView.setAdapter(mAdapter);
                     loading.setVisibility(View.GONE);
                 } else {
                     loading.setVisibility(View.GONE);
@@ -96,4 +94,5 @@ public class MyCropFragment extends Fragment {
             }
         });
     }
+
 }

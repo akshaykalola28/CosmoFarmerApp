@@ -3,6 +3,7 @@ package com.project.cosmofarmerapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
 
     View mainView;
+    Context mContext;
     TextView cityNameField, tempField, weatherField, descField;
     ImageView loadImage;
 
@@ -61,6 +63,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        mContext = getActivity();
 
         cityNameField = mainView.findViewById(R.id.city_name);
         tempField = mainView.findViewById(R.id.temp_text_view);
@@ -113,7 +117,7 @@ public class HomeFragment extends Fragment {
                 weatherField.setText(weather);
                 descField.setText(weatherDesc);
 
-                Picasso.with(getContext()).load("https://openweathermap.org/img/wn/" + iconId + ".png").into(loadImage);
+                Picasso.with(mContext).load("https://openweathermap.org/img/wn/" + iconId + ".png").into(loadImage);
             }
 
             @Override
@@ -124,7 +128,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initLocationData() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(mContext);
 
         locationRequest = new LocationRequest();
         locationRequest.setInterval(5000);
@@ -142,8 +146,8 @@ public class HomeFragment extends Fragment {
             }
         };
 
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
             return;

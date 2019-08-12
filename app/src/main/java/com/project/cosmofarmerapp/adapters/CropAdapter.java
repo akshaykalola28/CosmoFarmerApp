@@ -39,8 +39,8 @@ public class CropAdapter extends RecyclerView.Adapter<CropAdapter.CropViewHolder
     public void onBindViewHolder(@NonNull final CropViewHolder cropViewHolder, int i) {
         JsonObject item = items.get(i);
 
-        cropViewHolder.cropNameField.setText(item.get("cropname").getAsString());
-        cropViewHolder.areaField.setText(item.get("croparea").getAsString());
+        cropViewHolder.cropNameField.setText(item.get("cropName").getAsString());
+        cropViewHolder.areaField.setText(item.get("cropArea").getAsString());
         cropViewHolder.quantityField.setText(item.get("quantity").getAsString());
         cropViewHolder.dateField.setText(item.get("date").getAsString());
 

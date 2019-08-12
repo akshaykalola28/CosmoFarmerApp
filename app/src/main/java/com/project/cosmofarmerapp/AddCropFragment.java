@@ -7,13 +7,19 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.project.cosmofarmerapp.services.APIClient;
@@ -22,7 +28,9 @@ import com.project.cosmofarmerapp.services.APIServices;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,13 +43,17 @@ public class AddCropFragment extends Fragment {
 
     View mainView;
     EditText dateSelectField, cropNameField, landAreaField, quantityField;
+    TextView totalLandField, availLandField;
+    Spinner landSpinner;
     Button addCropButton;
     ProgressDialog mDialog;
 
     APIServices services;
 
+    List<JsonObject> landList;
     JSONObject userDataJson;
-    String cropName, landArea, quantity, expectedDate;
+    String cropName, landArea, quantity, expectedDate, landKeyId;
+    double cropLand, availableLand;
     private int mYear, mMonth, mDay;
 
     public AddCropFragment() {
@@ -64,6 +76,18 @@ public class AddCropFragment extends Fragment {
         quantityField = mainView.findViewById(R.id.input_quantity);
         dateSelectField = mainView.findViewById(R.id.date_select);
         addCropButton = mainView.findViewById(R.id.btn_add_crop);
+        totalLandField = mainView.findViewById(R.id.total_land_area);
+        availLandField = mainView.findViewById(R.id.available_land_area);
+        landSpinner = mainView.findViewById(R.id.land_spinner);
+
+        try {
+            mDialog = new ProgressDialog(getContext());
+            mDialog.setMessage("Please Wait...");
+            mDialog.show();
+            fetchLandList();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
@@ -89,8 +113,6 @@ public class AddCropFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getValidData()) {
-                    mDialog = new ProgressDialog(getContext());
-                    mDialog.setMessage("Please Wait...");
                     mDialog.show();
                     addCrop();
                 }
@@ -107,10 +129,11 @@ public class AddCropFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        crop.addProperty("name", cropName);
-        crop.addProperty("area", landArea);
+        crop.addProperty("cropName", cropName);
+        crop.addProperty("cropArea", landArea);
         crop.addProperty("date", expectedDate);
         crop.addProperty("quantity", quantity);
+        crop.addProperty("landKeyId", landKeyId);
 
         Call<JsonObject> call = services.addCrop(crop);
         call.enqueue(new Callback<JsonObject>() {
@@ -154,17 +177,91 @@ public class AddCropFragment extends Fragment {
         });
     }
 
+    private void fetchLandList() throws JSONException {
+        Call<List<JsonObject>> call = services.getLandList(userDataJson.getString("phone"));
+        call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                if (response.code() == 204) {
+                    Snackbar.make(mainView, "Land not Available.", Snackbar.LENGTH_SHORT).show();
+                    mDialog.dismiss();
+                } else if (response.isSuccessful()) {
+                    mDialog.dismiss();
+                    landList = response.body();
+                    initLandSpinner();
+                } else {
+                    mDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                mDialog.dismiss();
+                Snackbar.make(mainView, "Something is Wrong! Please Try Again...", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void initLandSpinner() {
+
+        List<String> landName = new ArrayList<>();
+        for (int i = 0; i < landList.size(); i++) {
+            JsonObject land = landList.get(i).getAsJsonObject();
+            landName.add(land.get("landName").getAsString());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, landName);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        landSpinner.setAdapter(adapter);
+
+        landSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                JsonObject land = landList.get(position).getAsJsonObject();
+                availableLand = land.get("availableLand").getAsDouble();
+                landKeyId = land.get("keyId").getAsString();
+
+                totalLandField.setText("Total Land Area: " + land.get("totalLand").getAsString());
+                availLandField.setText("Available Land Area: " + availableLand);
+                landAreaField.setText(String.valueOf(availableLand));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
     private boolean getValidData() {
         cropName = cropNameField.getText().toString().trim();
         landArea = landAreaField.getText().toString().trim();
         expectedDate = dateSelectField.getText().toString().trim();
         quantity = quantityField.getText().toString().trim();
 
+        if (!landArea.equals("")) {
+            cropLand = Double.parseDouble(landArea);
+        }
+
         if (cropName.equals("")) {
             cropNameField.setError("Enter Crop Name");
             cropNameField.requestFocus();
+        } else if (landKeyId == null || landKeyId.equals("")) {
+            /*TextView errorView = (TextView) landSpinner.getSelectedView();
+            errorView.setError("Select Land");
+            errorView.setTextColor(Color.RED);
+            errorView.setText("Select Land");
+            errorView.requestFocus();*/
+            Toast.makeText(getContext(), "Select Land", Toast.LENGTH_SHORT).show();
         } else if (landArea.equals("")) {
-            landAreaField.setError("Enter Land Area");
+            landAreaField.setError("Enter Crop Area");
+            landAreaField.requestFocus();
+        } else if (cropLand > availableLand || cropLand <= 0.0) {
+            landAreaField.setError("Insufficient Area");
             landAreaField.requestFocus();
         } else if (expectedDate.equals("")) {
             dateSelectField.setError("Select Date");

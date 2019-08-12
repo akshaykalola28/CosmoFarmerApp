@@ -30,4 +30,7 @@ public interface APIServices {
 
     @POST("land/add")
     Call<JsonObject> addLand(@Body JsonObject jsonObject);
+
+    @GET("land/{username}")
+    Call<List<JsonObject>> getLandList(@Path("username") String username);
 }
