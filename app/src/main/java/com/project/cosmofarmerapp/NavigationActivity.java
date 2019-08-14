@@ -116,6 +116,8 @@ public class NavigationActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).commit();
         } else if (id == R.id.nav_my_land) {
             getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyLandFragment()).commit();
+        } else if (id == R.id.nav_logout) {
+            logOut();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

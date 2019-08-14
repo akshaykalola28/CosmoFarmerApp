@@ -28,6 +28,11 @@
             android:id="@+id/nav_my_land"
             android:icon="@drawable/ic_format_list_bulleted"
             android:title="My Land" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Log Out" />
     </group>
 
     <!--<item android:title="Communicate">

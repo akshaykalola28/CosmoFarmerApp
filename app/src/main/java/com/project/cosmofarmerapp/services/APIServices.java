@@ -28,6 +28,9 @@ public interface APIServices {
     @GET("weather")
     Call<JsonObject> getWeather(@Query("lat") double lat, @Query("lon") double lon, @Query("appid") String appid);
 
+    @GET("forecast")
+    Call<JsonObject> getForecast(@Query("lat") double lat, @Query("lon") double lon, @Query("appid") String appid);
+
     @POST("land/add")
     Call<JsonObject> addLand(@Body JsonObject jsonObject);
 

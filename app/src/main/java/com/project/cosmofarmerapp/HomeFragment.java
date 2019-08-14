@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +28,18 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.gson.JsonObject;
+import com.project.cosmofarmerapp.adapters.WeatherLocationAdapter;
 import com.project.cosmofarmerapp.services.APIClient;
 import com.project.cosmofarmerapp.services.APIServices;
 import com.project.cosmofarmerapp.services.Config;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,8 +55,12 @@ public class HomeFragment extends Fragment {
     Context mContext;
     TextView cityNameField, tempField, weatherField, descField;
     ImageView loadImage;
+    RecyclerView weatherRecycler;
 
     APIServices services;
+    JSONObject userDataJson;
+    List<JsonObject> locationList;
+    WeatherLocationAdapter mAdapter;
 
     //Location Instance
     FusedLocationProviderClient fusedLocationClient;
@@ -65,6 +78,7 @@ public class HomeFragment extends Fragment {
         mainView = inflater.inflate(R.layout.fragment_home, container, false);
 
         mContext = getActivity();
+        userDataJson = ((NavigationActivity) getActivity()).getUser();
 
         cityNameField = mainView.findViewById(R.id.city_name);
         tempField = mainView.findViewById(R.id.temp_text_view);
@@ -72,7 +86,8 @@ public class HomeFragment extends Fragment {
         descField = mainView.findViewById(R.id.weather_desc);
         loadImage = mainView.findViewById(R.id.load_image);
 
-        getWeatherData();
+        //getWeatherData();
+        setWeatherRecycler();
 
         FloatingActionButton fab = mainView.findViewById(R.id.add_crop_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +99,46 @@ public class HomeFragment extends Fragment {
         });
 
         return mainView;
+    }
+
+    private void setWeatherRecycler() {
+        weatherRecycler = mainView.findViewById(R.id.weather_recyclerview);
+        weatherRecycler.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        weatherRecycler.setLayoutManager(linearLayoutManager);
+        locationList = new ArrayList<>();
+        try {
+            fetchLandList();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void fetchLandList() throws JSONException {
+        services = APIClient.getClient().create(APIServices.class);
+
+        Call<List<JsonObject>> call = services.getLandList(userDataJson.getString("phone"));
+        call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                if (response.code() == 204) {
+                    Snackbar.make(mainView, "Land not Available.", Snackbar.LENGTH_SHORT).show();
+                    //loading.setVisibility(View.GONE);
+                } else if (response.isSuccessful()) {
+                    locationList = response.body();
+                    mAdapter = new WeatherLocationAdapter(getContext(), HomeFragment.this, locationList);
+                    weatherRecycler.setAdapter(mAdapter);
+                    //loading.setVisibility(View.GONE);
+                } else {
+                    //loading.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                //loading.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void getWeatherData() {
