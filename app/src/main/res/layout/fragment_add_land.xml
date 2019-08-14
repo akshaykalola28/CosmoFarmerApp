@@ -14,23 +14,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/header_add_land"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Add Land"
-                android:textAllCaps="true"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+            <RelativeLayout
+                android:id="@+id/header_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/header_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="false"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/land_vector" />
+
+                <TextView
+                    android:id="@+id/header_add_land"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Add Land"
+                    android:textAllCaps="true"
+                    android:textColor="#000"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/header_add_land"
+                android:layout_below="@id/header_view"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 

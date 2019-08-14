@@ -180,7 +180,7 @@ public class AddLandFragment extends Fragment {
         } else if (surveyNumber.equals("")) {
             surveyNumberField.setError("Enter Survey Number");
             surveyNumberField.requestFocus();
-        } else if (locationString.equals("")) {
+        } else if (mLocation == null || locationString.equals("")) {
             locationField.setError("Waiting for Location");
             locationField.requestFocus();
         } else {
