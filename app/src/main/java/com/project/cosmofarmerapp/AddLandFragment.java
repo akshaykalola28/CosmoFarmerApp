@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -47,7 +48,8 @@ import retrofit2.Response;
 public class AddLandFragment extends Fragment {
 
     View mainView;
-    EditText landNameField, landAreaField, accountNumberField, surveyNumberField, locationField;
+    EditText landNameField, landAreaField, accountNumberField, surveyNumberField;
+    TextView locationField;
     Button addLandButton;
 
     JSONObject userDataJson;
@@ -73,7 +75,6 @@ public class AddLandFragment extends Fragment {
         mainView = inflater.inflate(R.layout.fragment_add_land, container, false);
 
         userDataJson = ((NavigationActivity) getActivity()).getUser();
-
         services = APIClient.getClient().create(APIServices.class);
 
         landNameField = mainView.findViewById(R.id.input_land_name);
@@ -89,9 +90,17 @@ public class AddLandFragment extends Fragment {
                 if (getValidData()) {
                     mDialog = new ProgressDialog(getContext());
                     mDialog.setMessage("Please Wait...");
+                    mDialog.setCanceledOnTouchOutside(false);
                     mDialog.show();
                     submitLand();
                 }
+            }
+        });
+
+        locationField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initLocationData(getContext());
             }
         });
 
@@ -130,8 +139,15 @@ public class AddLandFragment extends Fragment {
                         mDialog.dismiss();
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
                         alertDialogBuilder.setMessage(jsonResponse.get("data").getAsString())
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Add New", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).commit();
+                                    }
+                                })
+                                .setNegativeButton("Home", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).commit();
                                     }
                                 }).show();
                     } else {
@@ -228,15 +244,11 @@ public class AddLandFragment extends Fragment {
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            reqPermission();
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
             return;
         }
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
-    }
-
-    private void reqPermission() {
-        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION}, 1000);
     }
 
     @SuppressLint("MissingPermission")
@@ -249,6 +261,21 @@ public class AddLandFragment extends Fragment {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
                     } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                        alertDialogBuilder.setCancelable(false);
+                        alertDialogBuilder.setMessage("Location Permission is compulsory for adding a land. " +
+                                "Please Accept the Location Permission for better performance.")
+                                .setPositiveButton("Turn On", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        initLocationData(getContext());
+                                    }
+                                })
+                                .setNegativeButton("Home", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).commit();
+                                    }
+                                }).show();
                     }
                 }
         }

@@ -83,6 +83,7 @@ public class AddCropFragment extends Fragment {
         try {
             mDialog = new ProgressDialog(getContext());
             mDialog.setMessage("Please Wait...");
+            mDialog.setCanceledOnTouchOutside(false);
             mDialog.show();
             fetchLandList();
         } catch (JSONException e) {
@@ -145,8 +146,15 @@ public class AddCropFragment extends Fragment {
                         mDialog.dismiss();
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
                         alertDialogBuilder.setMessage(jsonResponse.get("data").getAsString())
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Add New", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
+                                    }
+                                })
+                                .setNegativeButton("Home", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).commit();
                                     }
                                 }).show();
                     } else {
@@ -155,6 +163,7 @@ public class AddCropFragment extends Fragment {
                         alertDialogBuilder.setMessage(jsonResponse.get("data").getAsString())
                                 .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
                                     }
                                 }).show();
                     }
@@ -164,6 +173,7 @@ public class AddCropFragment extends Fragment {
                     alertDialogBuilder.setMessage("Something is Wrong.")
                             .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
                                 }
                             }).show();
                 }
@@ -201,7 +211,6 @@ public class AddCropFragment extends Fragment {
             }
         });
     }
-
 
     private void initLandSpinner() {
 

@@ -16,7 +16,6 @@
         android:layout_marginBottom="5dp"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
         android:stateListAnimator="@anim/touchanim"
         app:cardCornerRadius="10dp"
         app:contentPadding="5dp"
