@@ -72,7 +72,7 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
+        //getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
 
@@ -87,7 +87,6 @@ public class NavigationActivity extends AppCompatActivity
         if (id == R.id.action_logout) {
             logOut();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -128,4 +127,6 @@ public class NavigationActivity extends AppCompatActivity
     public JSONObject getUser() {
         return userDataJson;
     }
+
+
 }

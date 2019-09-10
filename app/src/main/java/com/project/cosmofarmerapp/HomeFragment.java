@@ -64,8 +64,7 @@ public class HomeFragment extends Fragment {
         addCropFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment())
-                        .addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
             }
         });
 
@@ -74,8 +73,7 @@ public class HomeFragment extends Fragment {
         addLandFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment())
-                        .addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).commit();
             }
         });
 
@@ -86,7 +84,7 @@ public class HomeFragment extends Fragment {
         weatherRecycler = mainView.findViewById(R.id.weather_recyclerview);
         weatherRecycler.setHasFixedSize(true);
         weatherRecycler.setNestedScrollingEnabled(false);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         weatherRecycler.setLayoutManager(linearLayoutManager);
         locationList = new ArrayList<>();
 
