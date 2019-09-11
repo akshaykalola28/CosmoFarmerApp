@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.TooltipCompat;
@@ -64,7 +65,7 @@ public class HomeFragment extends Fragment {
         addCropFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -73,11 +74,23 @@ public class HomeFragment extends Fragment {
         addLandFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).addToBackStack(null).commit();
             }
         });
 
+        setButtonActions();
+
         return mainView;
+    }
+
+    private void setButtonActions() {
+        CardView cosmoPrice = mainView.findViewById(R.id.cosmo_price);
+        cosmoPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new ProductFragment()).addToBackStack(null).commit();
+            }
+        });
     }
 
     private void setWeatherRecycler() {

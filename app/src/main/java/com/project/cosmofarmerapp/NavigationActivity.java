@@ -106,15 +106,15 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_add_crop) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_my_crop) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyCropFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyCropFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_home) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_add_land) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_my_land) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyLandFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyLandFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_logout) {
             logOut();
         }
