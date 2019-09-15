@@ -12,9 +12,9 @@
         android:text="Location Label"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/forecast_recyclerview"
+    <include
+        layout="@layout/card_forecast"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/location_label" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/location_label"/>
 </RelativeLayout>

@@ -72,7 +72,7 @@ public class NavigationActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
+        //getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
 
@@ -87,7 +87,6 @@ public class NavigationActivity extends AppCompatActivity
         if (id == R.id.action_logout) {
             logOut();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -107,15 +106,15 @@ public class NavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_add_crop) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_my_crop) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyCropFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyCropFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_home) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_add_land) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_my_land) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyLandFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.navigation_frame, new MyLandFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_logout) {
             logOut();
         }
@@ -128,4 +127,6 @@ public class NavigationActivity extends AppCompatActivity
     public JSONObject getUser() {
         return userDataJson;
     }
+
+
 }

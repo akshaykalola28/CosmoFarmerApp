@@ -6,97 +6,144 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/weather_recyclerview"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/weather_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
-        android:stateListAnimator="@anim/touchanim"
-        android:visibility="gone"
-        app:cardCornerRadius="10dp"
-        app:contentPadding="5dp"
-        tools:targetApi="lollipop">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:baselineAligned="false">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/dashed_divider"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_below="@id/weather_recyclerview"
+                android:layerType="software"
+                android:src="@drawable/dashed" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_below="@id/dashed_divider"
+                android:layout_marginBottom="80dp"
+                android:gravity="bottom"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/city_name"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:text="###"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
-                <TextView
-                    android:id="@+id/temp_text_view"
-                    android:layout_width="wrap_content"
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:contentPadding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableTop="@drawable/growth"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="Organic Farming" />
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cosmo_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:contentPadding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableTop="@drawable/offer_price"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="Cosmo Offer Price" />
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:contentPadding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableTop="@drawable/zero_budget"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="Zero Budget Farming"
+                            android:textDirection="firstStrongLtr" />
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/city_name"
-                    android:text="26.9"
-                    android:textSize="50sp" />
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/city_name"
-                    android:layout_toEndOf="@id/temp_text_view"
-                    android:text="°C" />
-            </RelativeLayout>
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:contentPadding="5dp">
 
-            <RelativeLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableTop="@drawable/innovation"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="Innovative Machine and Tools" />
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        app:contentPadding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:drawableTop="@drawable/farmer_network"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="Farmer Directory"
+                            android:textDirection="firstStrongLtr" />
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/weather_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:id="@+id/load_image"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp" />
-
-                <TextView
-                    android:id="@+id/weather"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/load_image"
-                    android:layout_alignParentStart="true"
-                    android:text="###"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                <TextView
-                    android:id="@+id/weather_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/weather"
-                    android:text="###########"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/weather_desc" />
-            </RelativeLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_crop_fab"
@@ -104,7 +151,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="30dp"
-        android:src="@drawable/ic_add"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/crop_icon"
+        app:backgroundTint="@color/colorSecondary" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_land_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_toStartOf="@id/add_crop_fab"
+        android:src="@drawable/land_icon"
+        android:tooltipText="Add Land"
         app:backgroundTint="@color/colorSecondary" />
 </RelativeLayout>

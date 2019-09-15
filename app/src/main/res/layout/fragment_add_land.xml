@@ -122,19 +122,28 @@
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp">
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                    <EditText
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location: "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
                         android:id="@+id/input_location"
+                        style="@android:style/Widget.EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Location"
-                        android:inputType="number"
-                        android:singleLine="true" />
-                </android.support.design.widget.TextInputLayout>
+                        android:singleLine="true"
+                        android:text="Get Location"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/btn_add_land"

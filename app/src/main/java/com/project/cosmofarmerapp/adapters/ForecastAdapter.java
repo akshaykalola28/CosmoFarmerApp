@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.List;
 
-class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder> {
+public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder> {
 
     private Context context;
     private Fragment fragment;

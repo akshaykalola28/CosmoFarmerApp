@@ -36,4 +36,7 @@ public interface APIServices {
 
     @GET("land/{username}")
     Call<List<JsonObject>> getLandList(@Path("username") String username);
+
+    @GET("crop/products")
+    Call<List<JsonObject>> getProductList();
 }
