@@ -99,10 +99,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/land_location"
+                android:layout_toLeftOf="@id/delete_land"
+                android:layout_margin="3dp"
+                android:paddingHorizontal="20dp"
+                android:text="Update"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                app:backgroundTint="@color/colorSecondary"/>
+
+            <Button
+                android:id="@+id/delete_land"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/land_location"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="3dp"
                 android:paddingHorizontal="20dp"
-                android:text="Update" />
+                android:text="Delete"
+                android:textColor="#000"
+                android:textStyle="bold"
+                app:backgroundTint="#EE5E5E"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

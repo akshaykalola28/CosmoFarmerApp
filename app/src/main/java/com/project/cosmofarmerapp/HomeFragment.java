@@ -65,7 +65,8 @@ public class HomeFragment extends Fragment {
         addCropFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame,
+                        new AddCropFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -74,7 +75,8 @@ public class HomeFragment extends Fragment {
         addLandFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame,
+                        new AddLandFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -88,7 +90,28 @@ public class HomeFragment extends Fragment {
         cosmoPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new ProductFragment()).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame,
+                        new ProductFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        CardView organicFarmingCard = mainView.findViewById(R.id.organic_farming);
+        organicFarmingCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Intent intent = new Intent(getContext(), YoutubeActivity.class);
+                startActivity(intent);*/
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame,
+                        new OrganicFarmingFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        CardView innovationMachine = mainView.findViewById(R.id.innovation_machine);
+        innovationMachine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.navigation_frame,
+                        new InnovationMachineFragment()).addToBackStack(null).commit();
             }
         });
     }

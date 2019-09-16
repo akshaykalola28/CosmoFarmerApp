@@ -16,6 +16,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.project.cosmofarmerapp.services.APIClient;
 import com.project.cosmofarmerapp.services.APIServices;
@@ -47,6 +49,7 @@ import retrofit2.Response;
  */
 public class AddLandFragment extends Fragment {
 
+    private static final String TAG = "AddLandFragment";
     View mainView;
     EditText landNameField, landAreaField, accountNumberField, surveyNumberField;
     TextView locationField;
@@ -55,6 +58,8 @@ public class AddLandFragment extends Fragment {
     JSONObject userDataJson;
     String landName, landArea, accountNumber, surveyNumber, locationString;
     Location mLocation;
+    boolean isForUpdate;
+    String keyIdForUpdate;
 
     APIServices services;
     ProgressDialog mDialog;
@@ -77,6 +82,11 @@ public class AddLandFragment extends Fragment {
         userDataJson = ((NavigationActivity) getActivity()).getUser();
         services = APIClient.getClient().create(APIServices.class);
 
+        if (getArguments() != null && getArguments().getBoolean("isForUpdate")) {
+            Log.d(TAG, "onCreateView: Fragment is used for Update: " + getArguments());
+            isForUpdate = true;
+        }
+
         landNameField = mainView.findViewById(R.id.input_land_name);
         landAreaField = mainView.findViewById(R.id.input_land_area);
         accountNumberField = mainView.findViewById(R.id.input_account_number);
@@ -96,6 +106,21 @@ public class AddLandFragment extends Fragment {
                 }
             }
         });
+
+        if (isForUpdate) {
+            Gson gson = new Gson();
+            JsonObject landData = gson.fromJson(getArguments().getString("landData"), JsonObject.class);
+
+            landNameField.setText(landData.get("landName").getAsString());
+            landAreaField.setText(landData.get("totalLand").getAsString());
+            accountNumberField.setText(landData.get("accountNumber").getAsString());
+            surveyNumberField.setText(landData.get("surveyNumber").getAsString());
+            keyIdForUpdate = landData.get("keyId").getAsString();
+
+            TextView addLandHeader = mainView.findViewById(R.id.header_add_land);
+            addLandHeader.setText("Update Land");
+            addLandButton.setText("Update Land");
+        }
 
         locationField.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +154,13 @@ public class AddLandFragment extends Fragment {
 
         land.add("location", jsonLocation);
 
-        Call<JsonObject> call = services.addLand(land);
+        Call<JsonObject> call;
+        if (isForUpdate) {
+            land.addProperty("keyId", keyIdForUpdate);
+            call = services.updateLand(land);
+        } else {
+            call = services.addLand(land);
+        }
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -141,13 +172,15 @@ public class AddLandFragment extends Fragment {
                         alertDialogBuilder.setMessage(jsonResponse.get("data").getAsString())
                                 .setPositiveButton("Add New", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddLandFragment()).commit();
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame,
+                                                new AddLandFragment()).commit();
                                     }
                                 })
                                 .setNegativeButton("Home", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).commit();
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame,
+                                                new HomeFragment()).commit();
                                     }
                                 }).show();
                     } else {
@@ -156,6 +189,8 @@ public class AddLandFragment extends Fragment {
                         alertDialogBuilder.setMessage(jsonResponse.get("data").getAsString())
                                 .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame,
+                                                new HomeFragment()).commit();
                                     }
                                 }).show();
                     }
@@ -165,6 +200,8 @@ public class AddLandFragment extends Fragment {
                     alertDialogBuilder.setMessage("Something is Wrong.")
                             .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    getFragmentManager().beginTransaction().replace(R.id.navigation_frame,
+                                            new HomeFragment()).commit();
                                 }
                             }).show();
                 }

@@ -37,6 +37,7 @@
                     android:weightSum="3">
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/organic_farming"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -100,6 +101,7 @@
                     android:weightSum="2">
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/innovation_machine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

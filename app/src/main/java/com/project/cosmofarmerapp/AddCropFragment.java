@@ -1,6 +1,7 @@
 package com.project.cosmofarmerapp;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.project.cosmofarmerapp.services.APIClient;
 import com.project.cosmofarmerapp.services.APIServices;
@@ -39,8 +42,10 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressLint("SetTextI18n")
 public class AddCropFragment extends Fragment {
 
+    private static final String TAG = "AddCropFragment";
     View mainView;
     EditText dateSelectField, cropNameField, landAreaField, quantityField;
     TextView totalLandField, availLandField;
@@ -55,6 +60,8 @@ public class AddCropFragment extends Fragment {
     String cropName, landArea, quantity, expectedDate, landKeyId;
     double cropLand, availableLand;
     private int mYear, mMonth, mDay;
+    boolean isForUpdate = false;
+    String landIdForUpdate, keyIdForUpdate;
 
     public AddCropFragment() {
         // Required empty public constructor
@@ -69,6 +76,11 @@ public class AddCropFragment extends Fragment {
 
         userDataJson = ((NavigationActivity) getActivity()).getUser();
 
+        if (getArguments() != null && getArguments().getBoolean("isForUpdate")) {
+            Log.d(TAG, "onCreateView: Fragment is used for Update: " + getArguments());
+            isForUpdate = true;
+        }
+
         services = APIClient.getClient().create(APIServices.class);
 
         cropNameField = mainView.findViewById(R.id.input_crop_name);
@@ -79,6 +91,22 @@ public class AddCropFragment extends Fragment {
         totalLandField = mainView.findViewById(R.id.total_land_area);
         availLandField = mainView.findViewById(R.id.available_land_area);
         landSpinner = mainView.findViewById(R.id.land_spinner);
+
+        if (isForUpdate) {
+            Gson gson = new Gson();
+            JsonObject cropData = gson.fromJson(getArguments().getString("cropData"), JsonObject.class);
+
+            cropNameField.setText(cropData.get("cropName").getAsString());
+            landAreaField.setText(cropData.get("cropArea").getAsString());
+            quantityField.setText(cropData.get("quantity").getAsString());
+            dateSelectField.setText(cropData.get("date").getAsString());
+            landIdForUpdate = cropData.get("landKeyId").getAsString();
+            keyIdForUpdate = cropData.get("keyId").getAsString();
+
+            TextView addCropHeader = mainView.findViewById(R.id.header_add_crop);
+            addCropHeader.setText("Update Crop");
+            addCropButton.setText("Update Crop");
+        }
 
         try {
             mDialog = new ProgressDialog(getContext());
@@ -136,7 +164,13 @@ public class AddCropFragment extends Fragment {
         crop.addProperty("quantity", quantity);
         crop.addProperty("landKeyId", landKeyId);
 
-        Call<JsonObject> call = services.addCrop(crop);
+        Call<JsonObject> call;
+        if (isForUpdate) {
+            crop.addProperty("keyId", keyIdForUpdate);
+            call = services.updateCrop(crop);
+        } else {
+            call = services.addCrop(crop);
+        }
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -163,7 +197,7 @@ public class AddCropFragment extends Fragment {
                         alertDialogBuilder.setMessage(jsonResponse.get("data").getAsString())
                                 .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
+                                        getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).commit();
                                     }
                                 }).show();
                     }
@@ -173,7 +207,7 @@ public class AddCropFragment extends Fragment {
                     alertDialogBuilder.setMessage("Something is Wrong.")
                             .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new AddCropFragment()).commit();
+                                    getFragmentManager().beginTransaction().replace(R.id.navigation_frame, new HomeFragment()).commit();
                                 }
                             }).show();
                 }
@@ -220,7 +254,7 @@ public class AddCropFragment extends Fragment {
             landName.add(land.get("landName").getAsString());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item, landName);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -236,7 +270,9 @@ public class AddCropFragment extends Fragment {
 
                 totalLandField.setText("Total Land Area: " + land.get("totalLand").getAsString());
                 availLandField.setText("Available Land Area: " + availableLand);
-                landAreaField.setText(String.valueOf(availableLand));
+                if (!isForUpdate) {
+                    landAreaField.setText(String.valueOf(availableLand));
+                }
             }
 
             @Override
@@ -244,6 +280,16 @@ public class AddCropFragment extends Fragment {
 
             }
         });
+
+        if (isForUpdate) {
+            for (int i = 0; i < landList.size(); i++) {
+                JsonObject land = landList.get(i).getAsJsonObject();
+                if (land.get("keyId").getAsString().equals(landIdForUpdate)) {
+                    landSpinner.setSelection(i);
+                    break;
+                }
+            }
+        }
     }
 
     private boolean getValidData() {
