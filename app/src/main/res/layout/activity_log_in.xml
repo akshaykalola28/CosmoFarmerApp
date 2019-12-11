@@ -19,7 +19,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Welcome\nBack"
+            android:text="@string/welcome_nback"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -59,7 +59,7 @@
                     android:id="@+id/input_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone or Email"
+                    android:hint="@string/phone_or_email"
                     android:inputType="text"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
@@ -69,13 +69,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:tooltipText="Enter Password">
+                android:tooltipText="@string/enter_password">
 
                 <EditText
                     android:id="@+id/input_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
@@ -87,7 +87,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/colorSecondary"
-                android:text="LogIn"
+                android:text="@string/login"
                 android:textColor="#fff"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -101,6 +101,21 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:onClick="onClickRegister"
-        android:text="Register Now"
+        android:text="@string/register_now"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+    <Button
+        android:id="@+id/changeLang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/change_language"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:alpha="0.85"
+        android:backgroundTint="@color/colorSecondary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        />
 </RelativeLayout>

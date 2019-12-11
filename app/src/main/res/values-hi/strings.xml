@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">कॉस्मो किसान ऐप</string>
+
+    <!-- Menu Options -->
+    <string name="menu_home">होम</string>
+    <string name="menu_gallery">गैलरी</string>
+    <string name="menu_slideshow">स्लाइड शो</string>
+    <string name="menu_tools">उपकरण</string>
+    <string name="menu_share">शेयर</string>
+    <string name="menu_send">भेजें</string>
+
+    <string name="home">होम</string>
+    <string name="my_crop">मेरी फसल</string>
+    <string name="my_land">मेरी ज़मीन</string>
+    <string name="log_out">लोग आउट</string>
+
+    <string name="action_settings">सेटिंग्स</string>
+
+<!-- Login Activity Strings -->
+    <string name="login">लॉग इन करें</string>
+    <string name="register_now">अभी पंजीकरण करें</string>
+    <string name="change_language">भाषा बदलो</string>
+    <string name="welcome_nback">वापसी पर आपका स्वागत है</string>
+    <string name="phone_or_email">फोन या ईमेल</string>
+    <string name="password">पास वर्ड</string>
+    <string name="enter_password">पास वर्ड दर्ज करें</string>
+
+<!-- Signup Activity Strings -->
+    <string name="welcome_nto_the_ncosmo_family">कॉस्मो परिवार में आपका स्वागत है</string>
+    <string name="first_name">पहला नाम</string>
+    <string name="last_name">अंतिम नाम</string>
+    <string name="email_optional">ईमेल (वैकल्पिक)</string>
+    <string name="mobile_number">मोबाइल नंबर</string>
+    <string name="confirm_password">पासवर्ड की पुष्टि कीजिये</string>
+    <string name="date_of_birth">जन्म की तारीख</string>
+    <string name="permanent_address">स्थाई पता</string>
+    <string name="create_account">खाता बनाएं</string>
+    <string name="already_a_member_login_now">पहले से सदस्य हैं? लॉग इन करें</string>
+
+<!-- Products Card -->
+    <string name="product">उपज</string>
+    <string name="rate">मूल्य</string>
+    <string name="updateat">अपडेट किया गया</string>
+
+<!-- Weather Setup Card-->
+    <string name="location_label">स्थान लेबल</string>
+
+<!-- Youtube Card Thumbnail-->
+    <string name="name">नाम</string>
+
+<!-- Crop Card -->
+    <string name="cropname">#फसल का नाम#</string>
+    <string name="date">#तारीख#</string>
+    <string name="land_area">ज़मीन क्षेत्र</string>
+    <string name="quantity">मात्रा</string>
+    <string name="quantity2">#मात्रा#</string>
+    <string name="delete">मिटाना</string>
+
+<!-- Add Crop Fragment -->
+    <string name="add_crop">फसल दर्ज करें</string>
+    <string name="crop_name">फसल का नाम</string>
+    <string name="select_land">ज़मीन का चयन करें:</string>
+    <string name="total_land_area">कुल ज़मीन क्षेत्र:</string>
+    <string name="available_land_area">उपलब्ध ज़मीन क्षेत्र:</string>
+    <string name="crop_land_area">फसल ज़मीन क्षेत्र</string>
+    <string name="expected_date_of_harvesting">फसल कटाई की अपेक्षित तितारीख</string>
+    <string name="expected_quantity_in_kgs">अपेक्षित मात्रा (किलोग्राम में)</string>
+
+<!-- Add Land Fragment -->
+    <string name="add_land">ज़मीन दर्ज करें</string>
+    <string name="land_name">ज़मीन का नाम</string>
+    <string name="account_number">खाता संख्या</string>
+    <string name="survey_number">सर्वेक्षण अंक</string>
+    <string name="location">स्थान:</string>
+    <string name="get_location">स्थान प्राप्त करें</string>
+
+<!-- Home Fragment -->
+    <string name="organic_farming">जैविक खेती</string>
+    <string name="cosmo_offer_price">कॉस्मो ऑफर की कीमत</string>
+    <string name="zero_budget_farming">जीरो बजट खेती</string>
+    <string name="innovative_machine_and_tools">अभिनव मशीन और उपकरण</string>
+    <string name="farmer_directory">किसान फोनबुक</string>
+
+<!-- Product List Fragment -->
+    <string name="updated_on">अपडेट किया गया</string>
+
+<!-- Land Card -->
+    <string name="survey_no">#सर्वेक्षण अंक#</string>
+    <string name="landname">#ज़मीन का नाम#</string>
+    <string name="account_no">खाता संख्या</string>
+    <string name="account_no2">#खाता संख्या#</string>
+    <string name="land_area2">#ज़मीन क्षेत्र#</string>
+    <string name="update">अद्यतन करें</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="land_area_array">
+        <!--<item>Vigha(વીઘા)</item>-->
+        <item>हेक्टेयर</item>
+    </string-array>
+</resources>

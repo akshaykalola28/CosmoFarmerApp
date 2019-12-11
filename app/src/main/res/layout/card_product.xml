@@ -16,21 +16,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Product" />
+            android:text="@string/product" />
 
         <TextView
             android:id="@+id/product_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Rate" />
+            android:text="@string/rate" />
 
         <TextView
             android:id="@+id/update_on_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="UpdateAt" />
+            android:text="@string/updateat" />
     </LinearLayout>
 
     <View

@@ -1,9 +1,13 @@
 package com.project.cosmofarmerapp;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -17,6 +21,8 @@ import android.widget.EditText;
 import com.google.gson.JsonObject;
 import com.project.cosmofarmerapp.services.APIClient;
 import com.project.cosmofarmerapp.services.APIServices;
+
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +41,7 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadLocale();
         setContentView(R.layout.activity_log_in);
         changeStatusBarColor();
 
@@ -43,6 +50,14 @@ public class LogInActivity extends AppCompatActivity {
         // shared preferences
         mPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         checkSharedPreferences();
+        
+        Button changeLang = findViewById(R.id.changeLang);
+        changeLang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChangeLangDialog();
+            }
+        });
 
         usernameField = findViewById(R.id.input_username);
         passwordField = findViewById(R.id.input_password);
@@ -59,6 +74,47 @@ public class LogInActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showChangeLangDialog() {
+        final String [] listiems = {"हिन्दी", "English"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(LogInActivity.this);
+        mBuilder.setTitle("Choose Language..");
+        mBuilder.setSingleChoiceItems(listiems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0) {
+                    setLocale("hi");
+                    recreate();
+                }
+                else if (which == 1) {
+                    setLocale("en");
+                    recreate();
+                }
+
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
+
+    public void loadLocale() {
+        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+        String language = prefs.getString("My_Lang", "");
+        setLocale(language);
     }
 
     private void userLogin() {

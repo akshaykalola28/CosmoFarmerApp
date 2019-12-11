@@ -7,41 +7,43 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Home" />
+            android:title="@string/home" />
 
         <item
             android:id="@+id/nav_add_crop"
             android:icon="@drawable/ic_add_circle"
-            android:title="Add Crop" />
+            android:title="@string/add_crop" />
 
         <item
             android:id="@+id/nav_my_crop"
             android:icon="@drawable/ic_format_list_bulleted"
-            android:title="My Crop" />
+            android:title="@string/my_crop" />
 
         <item
             android:id="@+id/nav_add_land"
             android:icon="@drawable/ic_add_circle"
-            android:title="Add Land" />
+            android:title="@string/add_land" />
 
         <item
             android:id="@+id/nav_my_land"
             android:icon="@drawable/ic_format_list_bulleted"
-            android:title="My Land" />
+            android:title="@string/my_land" />
 
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_logout"
-            android:title="Log Out" />
+
     </group>
 
-    <!--<item android:title="Communicate">
+    <item android:title="@string/action_settings">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
+                android:id="@+id/nav_changeLang"
+                android:icon="@drawable/ic_language_black_24dp"
+                android:title="@string/change_language" />
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/log_out" />
         </menu>
-    </item>-->
+    </item>
 
 </menu>
