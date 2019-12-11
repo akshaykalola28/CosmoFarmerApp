@@ -52,7 +52,7 @@
                             android:drawableTop="@drawable/growth"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="Organic Farming" />
+                            android:text="@string/organic_farming" />
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
@@ -71,7 +71,7 @@
                             android:drawableTop="@drawable/offer_price"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="Cosmo Offer Price" />
+                            android:text="@string/cosmo_offer_price" />
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
@@ -89,7 +89,7 @@
                             android:drawableTop="@drawable/zero_budget"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="Zero Budget Farming"
+                            android:text="@string/zero_budget_farming"
                             android:textDirection="firstStrongLtr" />
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
@@ -116,7 +116,7 @@
                             android:drawableTop="@drawable/innovation"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="Innovative Machine and Tools" />
+                            android:text="@string/innovative_machine_and_tools" />
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
@@ -134,7 +134,7 @@
                             android:drawableTop="@drawable/farmer_network"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="Farmer Directory"
+                            android:text="@string/farmer_directory"
                             android:textDirection="firstStrongLtr" />
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
@@ -167,6 +167,6 @@
         android:layout_marginBottom="20dp"
         android:layout_toStartOf="@id/add_crop_fab"
         android:src="@drawable/land_icon"
-        android:tooltipText="Add Land"
+        android:tooltipText="@string/add_land"
         app:backgroundTint="@color/colorSecondary" />
 </RelativeLayout>

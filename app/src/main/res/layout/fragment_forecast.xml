@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:maxLines="3"
-            android:text="Location Label"
+            android:text="@string/location_label"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <android.support.v7.widget.RecyclerView

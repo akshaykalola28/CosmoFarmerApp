@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/thumbnail_view"
-        android:text="Name"
+        android:text="@string/name"
         android:layout_margin="5dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 

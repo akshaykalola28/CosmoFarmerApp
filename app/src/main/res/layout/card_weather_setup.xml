@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:singleLine="true"
-        android:text="Location Label"
+        android:text="@string/location_label"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <include

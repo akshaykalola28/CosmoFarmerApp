@@ -36,7 +36,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Add Land"
+                    android:text="@string/add_land"
                     android:textAllCaps="true"
                     android:textColor="#000"
                     android:textSize="30sp"
@@ -59,7 +59,7 @@
                         android:id="@+id/input_land_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Land Name"
+                        android:hint="@string/land_name"
                         android:imeOptions="actionNext"
                         android:inputType="textCapSentences"
                         android:singleLine="true" />
@@ -81,7 +81,7 @@
                             android:id="@+id/input_land_area"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Land Area"
+                            android:hint="@string/land_area"
                             android:inputType="numberDecimal"
                             android:singleLine="true" />
 
@@ -105,7 +105,7 @@
                         android:id="@+id/input_account_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Account Number"
+                        android:hint="@string/account_number"
                         android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -118,7 +118,7 @@
                         android:id="@+id/input_survey_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Survey Number"
+                        android:hint="@string/survey_number"
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -132,7 +132,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Location: "
+                        android:text="@string/location"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
@@ -141,7 +141,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:text="Get Location"
+                        android:text="@string/get_location"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
                 </LinearLayout>
 
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingHorizontal="40dp"
-                    android:text="Add Land"
+                    android:text="@string/add_land"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     app:backgroundTint="@color/colorSecondary" />

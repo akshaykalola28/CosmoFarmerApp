@@ -58,7 +58,7 @@ public class AddCropFragment extends Fragment {
     List<JsonObject> landList;
     JSONObject userDataJson;
     String cropName, landArea, quantity, expectedDate, landKeyId;
-    double cropLand, availableLand;
+    double cropLand, availableLand, totalLand;
     private int mYear, mMonth, mDay;
     boolean isForUpdate = false;
     String landIdForUpdate, keyIdForUpdate;
@@ -266,10 +266,11 @@ public class AddCropFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 JsonObject land = landList.get(position).getAsJsonObject();
                 availableLand = land.get("availableLand").getAsDouble();
+                totalLand = land.get("totalLand").getAsDouble();
                 landKeyId = land.get("keyId").getAsString();
 
-                totalLandField.setText("Total Land Area: " + land.get("totalLand").getAsString());
-                availLandField.setText("Available Land Area: " + availableLand);
+//                totalLandField.setText(R.string.total_land_area +" : "+totalLand);
+                availLandField.setText((int) (R.string.available_land_area + availableLand));
                 if (!isForUpdate) {
                     landAreaField.setText(String.valueOf(availableLand));
                 }

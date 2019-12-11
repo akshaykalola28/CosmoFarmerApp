@@ -36,7 +36,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Add Crop"
+                    android:text="@string/add_crop"
                     android:textAllCaps="true"
                     android:textColor="#000"
                     android:textSize="30sp"
@@ -59,7 +59,7 @@
                         android:id="@+id/input_crop_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Crop Name"
+                        android:hint="@string/crop_name"
                         android:imeOptions="actionNext"
                         android:inputType="textCapSentences"
                         android:singleLine="true" />
@@ -73,11 +73,11 @@
                     android:weightSum="3">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="446dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_weight="2"
-                        android:text="Select Land: "
+                        android:text="@string/select_land"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <Spinner
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginBottom="3dp"
-                    android:text="Total Land Area: "
+                    android:text="@string/total_land_area"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                 <TextView
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginBottom="5dp"
-                    android:text="Available Land Area: "
+                    android:text="@string/available_land_area"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="#D50000" />
 
@@ -122,7 +122,8 @@
                             android:id="@+id/input_land_area"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Crop Land Area"
+                            android:layout_weight="1"
+                            android:hint="@string/crop_land_area"
                             android:inputType="numberDecimal"
                             android:singleLine="true" />
 
@@ -146,7 +147,7 @@
                         android:id="@+id/date_select"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Expected Date of Harvesting" />
+                        android:hint="@string/expected_date_of_harvesting" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -158,7 +159,7 @@
                         android:id="@+id/input_quantity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Expected Quantity (In kgs)"
+                        android:hint="@string/expected_quantity_in_kgs"
                         android:inputType="number"
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
@@ -169,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingHorizontal="40dp"
-                    android:text="Add Crop"
+                    android:text="@string/add_crop"
                     android:textColor="#fff"
                     android:textStyle="bold"
                     app:backgroundTint="@color/colorSecondary" />
